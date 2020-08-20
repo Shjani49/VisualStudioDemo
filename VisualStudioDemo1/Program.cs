@@ -4,74 +4,50 @@ namespace VisualStudioDemo1
 {
     class Program
     {
-        static void Main(string[] args)
-        {
-            v      /* Code Borrowed from Warren */
 
-            // Prompt the user.
-            Console.WriteLine("Please type: (add/subtract/exit)");
-            string command; // Declare a variable.
-            // Accept commands.
-            while ((command = Console.ReadLine()) != "exit")
+        public static void Main(string[] args)
+        {
+            int[,] theArray = new int[2, 2];
+
+            string userInput = "";
+
+            do
             {
-                int result;
-                if (command == "add")
+                DisplayArray(theArray);
+
+                Console.Write("Please enter \"Exit\" to quit, or anything else to continue: ");
+                userInput = Console.ReadLine();
+
+                if (userInput.ToLower() != "exit")
                 {
-                    Console.WriteLine("Enter first number to add:");
-                    int firstNum = CollectIntFromUser();
-                    Console.WriteLine("Enter second number to add:");
-                    int secondNum = CollectIntFromUser();
-                    result = Addition(firstNum, secondNum);
-                    Console.WriteLine("The result is: {0}", result);
+                    int row, column, value;
+
+                    Console.Write("Please enter a row number: ");
+                    row = int.Parse(Console.ReadLine());
+
+                    Console.Write("Please enter a column number: ");
+                    column = int.Parse(Console.ReadLine());
+
+                    Console.Write("Please enter a new value: ");
+                    value = int.Parse(Console.ReadLine());
+
+                    // Modify the array
                 }
-                else if (command == "subtract")
-                {
-                    Console.WriteLine("Enter first number to subtract:");
-                    int firstNum = CollectIntFromUser();
-                    Console.WriteLine("Enter second number to subtract:");
-                    int secondNum = CollectIntFromUser();
-                    result = Subtraction(firstNum, secondNum);
-                    Console.WriteLine("The result is: {0}", result);
-                }
-                else
-                {
-                    Console.WriteLine("Invalid command, please try again.");
-                }
-                Console.WriteLine("Please enter a command: (add/subtract/exit)");
-            } // End of the while loop.
+            } while (userInput.ToLower() != "exit");
         }
 
-        static int Addition(int num1, int num2)
+        static void DisplayArray(int[,] arrayToDisplay)
         {
-            return num1 + num2;
-        }
-
-        static int Subtraction(int num1, int num2)
-        {
-            return num1 - num2;
-        }
-
-        static int CollectIntFromUser()
-        {
-            int intValue = 0;
-            bool error = true;
-            while (error == true)
+            Console.WriteLine("-----");
+            for (int r = 0; r < 2; r++)
             {
-                string userValue = Console.ReadLine();
-                try // Wrap potentially-failing code in a try - this will prevent an unhandled exception (fatal error for your program.)
+                Console.Write("|");
+                for (int c = 0; c < 2; c++)
                 {
-                    intValue = int.Parse(userValue); // Attempt to convert the string...
-                    error = false; // If we get here, we're good to return the int!
+                    Console.Write(arrayToDisplay[c, r] + "|");
                 }
-                catch (Exception exception)
-                { // We use "catch" to decide what happens if the "try" has an error!
-                    Console.WriteLine("Invalid value entered. Please enter a number.");
-                    Console.WriteLine(exception.Message); // The exception has its own error message - helpful to know what is failing!
-                }
-            } // End of the while loop.
-            return intValue; // Ends execution of the method, and passes the value back.
+                Console.WriteLine("\n-----");
+            }
         }
-
-
     }
-}
+        }
